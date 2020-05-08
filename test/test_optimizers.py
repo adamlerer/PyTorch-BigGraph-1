@@ -40,6 +40,7 @@ class TensorTestCase(TestCase):
 
 
 def do_optim(model, optimizer, N, rank):
+    torch.set_num_threads(1)
     torch.random.manual_seed(rank)
     for i in range(N):
         optimizer.zero_grad()
@@ -53,6 +54,7 @@ def do_optim(model, optimizer, N, rank):
 
 class TestOptimizers(TensorTestCase):
     def _stress_optimizer(self, model, optimizer, num_processes=1):
+        torch.set_num_threads(1)
         logger.info("_stress_optimizer begin")
         processes = []
         for rank in range(num_processes):
